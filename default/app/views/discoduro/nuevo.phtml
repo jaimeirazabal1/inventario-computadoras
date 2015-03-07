@@ -1,0 +1,48 @@
+
+<?php View::content() ?>
+<?php echo Form::open("","POST","id='form-discoduro'") ?>
+    <div class="col-sm-5 form-group">
+        <label for="">Capacidad</label>
+        <?php echo Form::text("discoduro.capacidad","class='form-control' placeholder='capacidad (500Gb,1000Gb..)'") ?>
+    </div>
+    <div class="col-sm-5 form-group">
+        <label for="">Marca</label>
+        <?php echo Form::text("discoduro.marca","class='form-control' placeholder='Marca (Hitachi,Western Digital..)'") ?>
+    </div>
+    <div class="col-sm-5 form-group">
+        <label for="">Puerto</label>
+        <?php echo Form::text("discoduro.puerto","class='form-control' placeholder='Puerto (Sata,IDE..)'") ?>
+    </div>
+    <div style="clear:both"></div>
+    <input type="submit" value="Guardar"class="btn btn-default">
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(document).one("submit","#form-discoduro",function(){
+            var data = $(this).serialize();
+            $.ajax({
+                url:"../discoduro/nuevo",
+                type:"POST",
+                data:data,
+                async:false,
+                success:function(r){
+                    if (r.correcto) {
+                        alert(r.mensaje);
+                        $('#myModal').modal('toggle')
+                        $.ajax({
+                            url:"../discoduro/get",
+                            async:false,
+                            success:function(r){
+                    
+                                $("#equipo_discoduro_id").html(r);
+                            }
+                        })
+                    }else{
+                        alert(r.mensaje)
+                    }
+                }
+            })
+            return false;
+        })
+    })
+</script>

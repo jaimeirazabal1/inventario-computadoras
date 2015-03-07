@@ -1,0 +1,44 @@
+
+<?php View::content() ?>
+<?php echo Form::open("","POST","id='form-mouse'") ?>
+    <div class="col-sm-5 form-group">
+        <label for="">Marca</label>
+        <?php echo Form::text("mouse.marca","class='form-control' placeholder='Marca (Genius,microsoft ..)'") ?>
+    </div>
+    <div class="col-sm-5 form-group">
+        <label for="">serial</label>
+        <?php echo Form::text("mouse.serial","class='form-control' placeholder='serial (123123,1231f2..)'") ?>
+    </div>
+    <div style="clear:both"></div>
+    <input type="submit" value="Guardar"class="btn btn-default">
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(document).one("submit","#form-mouse",function(){
+            var data = $(this).serialize();
+            $.ajax({
+                url:"../mouse/nuevo",
+                type:"POST",
+                data:data,
+                async:false,
+                success:function(r){
+                    if (r.correcto) {
+                        alert(r.mensaje);
+                        $('#myModal').modal('toggle')
+                        $.ajax({
+                            url:"../mouse/get",
+                            async:false,
+                            success:function(r){
+                    
+                                $("#equipo_mouse_id").html(r);
+                            }
+                        })
+                    }else{
+                        alert(r.mensaje)
+                    }
+                }
+            })
+            return false;
+        })
+    })
+</script>

@@ -1,0 +1,48 @@
+
+<?php View::content() ?>
+<?php echo Form::open("","POST","id='form-monitor'") ?>
+    <div class="col-sm-5 form-group">
+        <label for="">Marca</label>
+        <?php echo Form::text("monitor.marca","class='form-control' placeholder='Marca (Lenovo,Acer..)'") ?>
+    </div>
+    <div class="col-sm-5 form-group">
+        <label for="">Modelo</label>
+        <?php echo Form::text("monitor.modelo","class='form-control' placeholder='Modelo (ASDN2.AOSDK2..)'") ?>
+    </div>
+    <div class="col-sm-5 form-group">
+        <label for="">serial</label>
+        <?php echo Form::text("monitor.serial","class='form-control' placeholder='serial (123123,1231f2..)'") ?>
+    </div>
+    <div style="clear:both"></div>
+    <input type="submit" value="Guardar"class="btn btn-default">
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(document).one("submit","#form-monitor",function(){
+            var data = $(this).serialize();
+            $.ajax({
+                url:"../monitor/nuevo",
+                type:"POST",
+                data:data,
+                async:false,
+                success:function(r){
+                    if (r.correcto) {
+                        alert(r.mensaje);
+                        $('#myModal').modal('toggle')
+                        $.ajax({
+                            url:"../monitor/get",
+                            async:false,
+                            success:function(r){
+                    
+                                $("#equipo_monitor_id").html(r);
+                            }
+                        })
+                    }else{
+                        alert(r.mensaje)
+                    }
+                }
+            })
+            return false;
+        })
+    })
+</script>

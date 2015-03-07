@@ -13,6 +13,13 @@
 	    <a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nueva Coordinacion</a>
     </div>
     <div style="clear:both"></div>
+    <fieldset>
+    	<legend>Usuario (Usuario de Equipo)</legend>
+    	<div class="form-group">
+    		<label>Nombre y Apellido</label>
+    		<?php echo Form::text("usuariopc.nombre","class='form-control'") ?>
+    	</div>
+    </fieldset>
     <br>
     <fieldset>
 	    	<legend>Datos de Equipo</legend>
@@ -35,31 +42,102 @@
 	    </div>
 	    <div style="clear:both"></div>
 	    <div class="col-sm-5">
-		    <label for="">MacAddress (Lan)</label>
-		    <?php echo Form::text("equipo.macaddress","class='form-control' placeholder='MacAddress (Lan)'") ?>
+		    <label for="">MacAddress </label>
+		    <?php echo Form::text("equipo.macaddress","class='form-control' placeholder='MacAddress '") ?>
 	    </div>
 	    <div class="col-sm-5">
-		    <label for="">MacAddress (inalambrico)</label>
-		    <?php echo Form::text("equipo.macaddress2","class='form-control' placeholder='MacAddress (inalambrico)'") ?>
+	    	
+			    <label for="">MacAddress (inalambrico)</label>
+			    <?php echo Form::text("equipo.macaddress2","class='form-control' placeholder='MacAddress (inalambrico)'") ?>
+		    
+	    </div>
+	    
+	    <div style="clear:both"></div>
+	    <br>
+	   	<div class="col-sm-5">
+	    	<div class="check">
+		    <label for="">Con Unidad de CdRom</label>
+		    <?php echo Form::check("equipo.cdrom",1) ?>
+		    </div>
 	    </div>
 	    <div style="clear:both"></div>
     </fieldset>
     <br>
+    <div class="col-sm-5">
+	    <fieldset>
+	    	<div class="form-group">
+	    		<legend>Procesador</legend>
+	    		<?php echo Form::select("equipo.procesador_id",$procesadores,"class='form-control'") ?>
+	    	</div>
+	   		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nuevo Procesador</a>
+	    </fieldset>
+	</div>
+    <div class="col-sm-5">
+	    <fieldset>
+	    	<div class="form-group">
+	    		<legend>Ram</legend>
+	    		<?php echo Form::select("equipo.ram_id",$rams,"class='form-control'") ?>
+	    	</div>
+	   		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nueva Ram</a>
+	    </fieldset>
+	    </div>
+
+	<div class="col-sm-5">
+	    <fieldset>
+	    	<div class="form-group">
+	    		<legend>Disco Duro</legend>
+	    		<?php echo Form::select("equipo.discoduro_id",$discosduros,"class='form-control'") ?>
+	    	</div>
+	   		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nuevo Disco Duro</a>
+	    </fieldset>
+    </div>
+    <div class="col-sm-5">
+	    <fieldset>
+	    	<div class="form-group">
+	    		<legend>Monitor</legend>
+	    		<?php echo Form::select("equipo.monitor_id",$monitores,"class='form-control'") ?>
+	    	</div>
+	   		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nuevo Monitor</a>
+	    </fieldset>
+    </div>
+    <div class="col-sm-5">
+	    <fieldset>
+	    	<div class="form-group">
+	    		<legend>Tarjeta Madre</legend>
+	    		<?php echo Form::select("equipo.tarjetamadre_id",$tarjetasmadres,"class='form-control'") ?>
+	    	</div>
+	   		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nueva Tarjeta Madre</a>
+	    </fieldset>
+    </div>
+
+    <div class="col-sm-5">
     <fieldset>
     	<div class="form-group">
-    		<legend>Procesador</legend>
-    		<?php echo Form::select("equipo.procesador_id",$procesadores,"class='form-control'") ?>
+    		<legend>Mouse</legend>
+    		<?php echo Form::select("equipo.mouse_id",$mouses,"class='form-control'") ?>
     	</div>
-   		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nuevo Procesador</a>
+   		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nuevo Mouse</a>
     </fieldset>
-    <br>
+    </div>
+    <div class="col-sm-5">
     <fieldset>
     	<div class="form-group">
-    		<legend>Ram</legend>
-    		<?php echo Form::select("equipo.ram_id",$rams,"class='form-control'") ?>
+    		<legend>Teclado</legend>
+    		<?php echo Form::select("equipo.teclado_id",$teclados,"class='form-control'") ?>
     	</div>
-   		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nueva Ram</a>
+   		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nuevo Teclado</a>
     </fieldset>
+    </div>
+    <div class="col-sm-5">
+	    <fieldset>
+	    	<div class="form-group">
+	    		<legend>Case</legend>
+	    		<?php echo Form::select("equipo.cases_id",$cases,"class='form-control'") ?>
+	    	</div>
+	   		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nuevo Case</a>
+	    </fieldset>
+	</div>
+	<div style="clear:both"></div>
   </div>
   
   <input type="submit" class="btn btn-success" value="Guardar">
@@ -114,6 +192,36 @@
 			}
 			if (nombre == 'Nueva Ram') {			
 				$( ".modal-body" ).load( "../ram/nueva/", function() {
+				  console.log( "Load was performed." );
+				});
+			}
+			if (nombre == 'Nuevo Disco Duro') {			
+				$( ".modal-body" ).load( "../discoduro/nuevo/", function() {
+				  console.log( "Load was performed." );
+				});
+			}
+			if (nombre == 'Nuevo Monitor') {			
+				$( ".modal-body" ).load( "../monitor/nuevo/", function() {
+				  console.log( "Load was performed." );
+				});
+			}
+			if (nombre == 'Nueva Tarjeta Madre') {			
+				$( ".modal-body" ).load( "../tarjetamadre/nueva/", function() {
+				  console.log( "Load was performed." );
+				});
+			}
+			if (nombre == 'Nuevo Mouse') {			
+				$( ".modal-body" ).load( "../mouse/nuevo/", function() {
+				  console.log( "Load was performed." );
+				});
+			}
+			if (nombre == 'Nuevo Teclado') {			
+				$( ".modal-body" ).load( "../teclado/nuevo/", function() {
+				  console.log( "Load was performed." );
+				});
+			}
+			if (nombre == 'Nuevo Case') {			
+				$( ".modal-body" ).load( "../case/nuevo/", function() {
 				  console.log( "Load was performed." );
 				});
 			}

@@ -1,0 +1,44 @@
+
+<?php View::content() ?>
+<?php echo Form::open("","POST","id='form-tarjetamadre'") ?>
+    <div class="col-sm-5 form-group">
+        <label for="">Marca</label>
+        <?php echo Form::text("tarjetamadre.marca","class='form-control' placeholder='Marca (Intel,asrock..)'") ?>
+    </div>
+    <div class="col-sm-5 form-group">
+        <label for="">serial</label>
+        <?php echo Form::text("tarjetamadre.serial","class='form-control' placeholder='serial (123123,1231f2..)'") ?>
+    </div>
+    <div style="clear:both"></div>
+    <input type="submit" value="Guardar"class="btn btn-default">
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(document).one("submit","#form-tarjetamadre",function(){
+            var data = $(this).serialize();
+            $.ajax({
+                url:"../tarjetamadre/nueva",
+                type:"POST",
+                data:data,
+                async:false,
+                success:function(r){
+                    if (r.correcto) {
+                        alert(r.mensaje);
+                        $('#myModal').modal('toggle')
+                        $.ajax({
+                            url:"../tarjetamadre/get",
+                            async:false,
+                            success:function(r){
+                    
+                                $("#equipo_tarjetamadre_id").html(r);
+                            }
+                        })
+                    }else{
+                        alert(r.mensaje)
+                    }
+                }
+            })
+            return false;
+        })
+    })
+</script>
