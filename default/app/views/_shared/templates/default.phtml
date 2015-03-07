@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta http-equiv='Content-type' content='text/html; charset=<?php echo APP_CHARSET ?>' />
+  <title>Invetario de Equipos</title>
+  <?php Tag::css("bootstrap/css/bootstrap.min") ?>
+  <?php Tag::css("snipet") ?>
+  <?php echo Html::includeCss() ?>
+  <?php echo Tag::js("jquery/jquery.min") ?>
+  <?php echo Tag::js("bootstrap/js/bootstrap.min") ?>
+  <?php echo Tag::js("general") ?>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-static-top">
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">
+				Brand
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">			
+			<form class="navbar-form navbar-left" method="GET" role="search">
+				<div class="form-group">
+					<input type="text" name="q" class="form-control" placeholder="Search">
+				</div>
+				<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+			</form>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="http://www.pingpong-labs.com" target="_blank">Visit Site</a></li>
+				<li class="dropdown ">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+						Account
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li class="dropdown-header">SETTINGS</li>
+							<li class=""><a href="#">Other Link</a></li>
+							<li class=""><a href="#">Other Link</a></li>
+							<li class=""><a href="#">Other Link</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+	<div class="container-fluid main-container">
+		<?php if (Auth::is_valid()): ?>
+			
+			<div class="col-md-2 sidebar">
+				<ul class="nav nav-pills nav-stacked">
+					<li class="dropdown ">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+						Invetario de Hardware
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li class=""><?php echo Html::link("asignacion/nueva","Agregar") ?></li>
+							<li class=""><?php echo Html::link("asignacion/","Ver") ?></li>
+						</ul>
+					</li>
+					<li class="dropdown ">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+						Invetario de Software
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li class=""><?php echo Html::link("#","Agregar") ?></li>
+							<li class=""><?php echo Html::link("#","Ver") ?></li>
+						</ul>
+					</li>
+					<li><?php echo Html::link("#","Reportes") ?></li>
+					<li><?php echo Html::link("sesion/logout","Salir") ?></li>
+
+				</ul>
+			</div>
+		<?php endif ?>
+		<?php if (Auth::is_valid()): ?>
+			<div class="col-md-10 content">
+		<?php else: ?>
+			<div class="col-md-12 content">
+
+		<?php endif ?>
+            <?php View::content(); ?>
+		</div>
+		<footer class="pull-left footer">
+			<p class="col-md-12">
+				<hr class="divider">
+				Corporacion de Servicios del Distrito Capital <?php echo date("Y") ?>
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

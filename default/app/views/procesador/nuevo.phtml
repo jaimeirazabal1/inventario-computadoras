@@ -1,0 +1,50 @@
+
+<?php View::content() ?>
+<?php echo Form::open("","POST","id='form-procesador'") ?>
+    <div class="col-sm-5 form-group">
+        <label for="">Velocidad</label>
+        <?php echo Form::text("procesador.velocidad","class='form-control' placeholder='Velocidad (3Gz,4Gz..)'") ?>
+    </div>
+    <div class="col-sm-5 form-group">
+        <label for="">Nombre</label>
+        <?php echo Form::text("procesador.nombre","class='form-control' placeholder='Nombre (i7,i5,i3,DualCore...)'") ?>
+    </div>
+    <div style="clear:both"></div>
+    <div class="col-sm-5 form-group">
+        <label for="">Marca</label>
+        <?php echo Form::text("procesador.marca","class='form-control' placeholder='Marca (Intel,AMD...)'") ?>
+    </div>
+
+    <div style="clear:both"></div>
+    <input type="submit" value="Guardar"class="btn btn-default">
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(document).one("submit","#form-procesador",function(){
+            var data = $(this).serialize();
+            $.ajax({
+                url:"../procesador/nuevo",
+                type:"POST",
+                data:data,
+                async:false,
+                success:function(r){
+                    if (r.correcto) {
+                        alert(r.mensaje);
+                        $('#myModal').modal('toggle')
+                        $.ajax({
+                            url:"../procesador/get",
+                            async:false,
+                            success:function(r){
+                    
+                                $("#equipo_procesador_id").html(r);
+                            }
+                        })
+                    }else{
+                        alert(r.mensaje)
+                    }
+                }
+            })
+            return false;
+        })
+    })
+</script>

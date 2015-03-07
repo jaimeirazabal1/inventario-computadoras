@@ -1,0 +1,45 @@
+
+<?php View::content() ?>
+<?php echo Form::open("","POST","id='form-ram'") ?>
+    <div class="col-sm-5 form-group">
+        <label for="">Cantidad</label>
+        <?php echo Form::text("ram.cantidad","class='form-control' placeholder='Cantidad (3Gb,4Gb,512Mb..)'") ?>
+    </div>
+    <div class="col-sm-5 form-group">
+        <label for="">Tipo</label>
+        <?php echo Form::text("ram.tipo","class='form-control' placeholder='Tipo (ddr2,ddr3..)'") ?>
+    </div>
+
+    <div style="clear:both"></div>
+    <input type="submit" value="Guardar"class="btn btn-default">
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(document).one("submit","#form-ram",function(){
+            var data = $(this).serialize();
+            $.ajax({
+                url:"../ram/nueva",
+                type:"POST",
+                data:data,
+                async:false,
+                success:function(r){
+                    if (r.correcto) {
+                        alert(r.mensaje);
+                        $('#myModal').modal('toggle')
+                        $.ajax({
+                            url:"../ram/get",
+                            async:false,
+                            success:function(r){
+                    
+                                $("#equipo_ram_id").html(r);
+                            }
+                        })
+                    }else{
+                        alert(r.mensaje)
+                    }
+                }
+            })
+            return false;
+        })
+    })
+</script>
