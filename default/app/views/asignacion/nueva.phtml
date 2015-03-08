@@ -9,18 +9,17 @@
     </div>
     <div class="col-sm-5">
 	    <label for="">Coordinacion</label>
-	    <?php echo Form::select("asignacion.coordinacion_id",array("Coordinacion"),"class='form-control'") ?>
+    <?php echo Form::select("asignacion.coordinacion_id",array("Coordinacion"),"class='form-control'") ?>
 	    <a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nueva Coordinacion</a>
     </div>
     <div style="clear:both"></div>
     <fieldset>
     	<legend>Usuario (Usuario de Equipo)</legend>
     	<div class="form-group">
-    		<label>Nombre y Apellido</label>
-    		<?php echo Form::text("usuariopc.nombre","class='form-control'") ?>
+    		<?php echo Form::select("asignacion.usuariopc_id",$usuariospc,"class='form-control'") ?>
+    		<a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nuevo Usuario de Pc</a>
     	</div>
     </fieldset>
-    <br>
     <fieldset>
 	    	<legend>Datos de Equipo</legend>
 	    <div class="col-sm-5">
@@ -43,13 +42,11 @@
 	    <div style="clear:both"></div>
 	    <div class="col-sm-5">
 		    <label for="">MacAddress </label>
-		    <?php echo Form::text("equipo.macaddress","class='form-control' placeholder='MacAddress '") ?>
+		    <?php echo Form::text("equipo.macaddress1","class='form-control' placeholder='MacAddress '") ?>
 	    </div>
 	    <div class="col-sm-5">
-	    	
-			    <label for="">MacAddress (inalambrico)</label>
-			    <?php echo Form::text("equipo.macaddress2","class='form-control' placeholder='MacAddress (inalambrico)'") ?>
-		    
+		    <label for="">MacAddress (inalambrico)</label>
+		    <?php echo Form::text("equipo.macaddress2","class='form-control' placeholder='MacAddress (inalambrico)'") ?>
 	    </div>
 	    
 	    <div style="clear:both"></div>
@@ -58,6 +55,12 @@
 	    	<div class="check">
 		    <label for="">Con Unidad de CdRom</label>
 		    <?php echo Form::check("equipo.cdrom",1) ?>
+		    </div>
+	    </div>
+	    <div class="col-sm-5">
+		    <div class="form-group">
+		    	<label for="">Serial</label>
+		    	<?php echo Form::text("equipo.serial","class='form-control'") ?>
 		    </div>
 	    </div>
 	    <div style="clear:both"></div>
@@ -167,7 +170,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('.modales').click(function(e){
+		$('.modales').on("click",function(e){
 			e.preventDefault();
 			var nombre = $(this).text();
 			if (nombre == 'Nuevo Departamento') {
@@ -222,6 +225,11 @@
 			}
 			if (nombre == 'Nuevo Case') {			
 				$( ".modal-body" ).load( "../case/nuevo/", function() {
+				  console.log( "Load was performed." );
+				});
+			}
+			if (nombre == 'Nuevo Usuario de Pc') {			
+				$( ".modal-body" ).load( "../usuariopc/nuevo/", function() {
 				  console.log( "Load was performed." );
 				});
 			}

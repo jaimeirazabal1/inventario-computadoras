@@ -8,6 +8,9 @@ class Coordinacion extends ActiveRecord{
 		}
 		return $options;
 	}
+	public function getNombreById($id){
+		return $this->find($id)->nombre;
+	}
 }
 
  ?>

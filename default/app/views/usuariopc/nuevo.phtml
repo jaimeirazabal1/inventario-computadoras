@@ -1,0 +1,70 @@
+
+<?php View::content() ?>
+<?php echo Form::open("","POST","id='form-usuariopc'") ?>
+    <div class="col-sm-5 form-group">
+        <label for="">Departamento</label>
+        <?php echo Form::dbselect("usuariopc.departamento_id",null,null,"Departamentos","class='form-control'") ?>
+        <a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nuevo Departamento</a>
+    </div>
+    <div class="col-sm-5 form-group">
+        <label for="">Coordinacion</label>
+        <?php echo Form::select("usuariopc.coordinacion_id",array("Coordinacion"),"class='form-control'") ?>
+        <a href="#" data-toggle="modal" class="modales" data-target="#myModal">Nueva Coordinacion</a>
+    </div>
+    <div style="clear:both"></div>
+    
+    <div class="col-sm-5 form-group">
+        <label for="">Nombre Usuario</label>
+        <?php echo Form::text("usuariopc.nombreusuario","class='form-control' placeholder='Nombre usuario...'") ?>
+        
+    </div>
+    <div class="col-sm-5 form-group">
+        <label for="">Apellido Usuario</label>
+        <?php echo Form::text("usuariopc.apellidousuario","class='form-control' placeholder='Apellido Usuario...'") ?>
+        
+    </div>
+    <div style="clear:both"></div>
+    <div class="col-sm-5 form-group">
+        <label for="">Nombre de Maquina</label>
+        <?php echo Form::text("usuariopc.nombremaquina","class='form-control' placeholder='usuario_1..'") ?>
+    </div>
+    <div style="clear:both"></div>
+    <input type="submit" value="Guardar"class="btn btn-default">
+</form>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(document).one("submit","#form-usuariopc",function(){
+            var data = $(this).serialize();
+            $.ajax({
+                url:"../usuariopc/nuevo",
+                type:"POST",
+                data:data,
+                async:false,
+                success:function(r){
+                    if (r.correcto) {
+                        alert(r.mensaje);
+                        $('#myModal').modal('toggle')
+                        $.ajax({
+                            url:"../usuariopc/get",
+                            async:false,
+                            success:function(r){
+                    
+                                $("#asignacion_usuariopc_id").html(r);
+                            }
+                        })
+                    }else{
+                        alert(r.mensaje)
+                    }
+                }
+            })
+            return false;
+        })
+        $("#usuariopc_departamento_id").change(function(){
+            departamento_id = $("#usuariopc_departamento_id option:selected").val();
+            $.get("../coordinacion/get/"+departamento_id,function(r){
+
+                $("#usuariopc_coordinacion_id").html(r);
+            })
+        })
+    })
+</script>
